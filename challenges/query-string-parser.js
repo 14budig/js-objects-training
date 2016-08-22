@@ -44,4 +44,24 @@
 
 */
 
-// YOUR CODE HERE
+var parseQueryString = function(input){
+  var pairs = input.split("&");
+  var output = {};
+  for(var i = 0; i < pairs.length; i++){
+    var currentPair = pairs[i].split("=");
+    output[currentPair[0]] = currentPair[1];
+  }
+  return output;
+}
+
+var getQueryString = function(input){
+  var output = "";
+  for(var key in input){
+    output =output + key + "=" + input[key] + "&";
+  }
+  output = output.slice(0, output.length-1);
+  return output;
+}
+
+console.log(parseQueryString("a=apple&b=beet&b=blueberry&c=&d=10"));
+console.log(getQueryString({a:"yes", b: true, c: "10"}));
