@@ -30,4 +30,19 @@
 
 */
 
-// YOUR CODE HERE
+var letterCount = function(input){
+  input = input.toLowerCase();
+  var letters = input.split('');
+  var output = {}
+  for(var i = 0; i < letters.length; i++){
+    if(output[letters[i]]){
+      output[letters[i]]++;
+    }
+    else{
+      output[letters[i]] = 1;
+    }
+  }
+  return output;
+}
+
+console.log(letterCount("ApPle"));
