@@ -37,54 +37,37 @@
 
 */
 
-var pingPong = function(table){
-  //console.log("sanity test");
+var pingPong = function(table, speed){
+  speed = speed || 1;
   var position;
   var steps;
   for(var i = 0; i < table.length; i++){
     if(table[i]){
       position = i;
       steps = table[i].steps;
-      break;
     }
-
   }
-  var speed = 1;
-  steps++;
-  var remainder = steps % table.length;
-  var tempSteps = steps - remainder; // for help getting direction
-  var directionSteps = tempSteps / table.length;
-  console.log(directionSteps);
-  var goLeft = directionSteps % 2;
-  if (position === 0){
-    goLeft = 0;
+  var remainder = steps%(table.length - 1);
+  var adjustedSteps = steps - remainder;
+  var goLeft = (adjustedSteps/(table.length - 1))%2;
+  if(goLeft){
+    table[position] = null;
+    table[position-1] = {"steps":steps+1};
   }
-  if(position === table.length -1){
-    goLeft = 1;
+  else{
+    table[position] = null;
+    table[position+1] = {"steps":steps+1};
   }
-
-  //console.log(goLeft);
-
-if(goLeft){
-  table[position] = null;
-  table[position-1] = {"steps": steps};
-}
-else{
-  table[position] = null;
-  table[position+1] = {"steps": steps};
-}
-console.log(table);
-
-
-
+  console.log(table);
+  return table;
 }
 var table = [{steps: 0}, null, null, null];
 console.log(table);
-pingPong(table);
-pingPong(table); //=> [null, {steps: 1}, null, null]
-pingPong(table); //=> [null, null, {steps: 2}, null]
-pingPong(table); //=> [null, null, null, {steps: 3}]
-pingPong(table); //=> [null, null, {steps: 4}, null]
-pingPong(table); //=> [null, {steps: 5}, null, null]
-pingPong(table); //=> [{steps: 6}, null, null, null]
+table = pingPong(table);
+table = pingPong(table); //=> [null, {steps: 1}, null, null]
+table = pingPong(table); //=> [null, null, {steps: 2}, null]
+table = pingPong(table); //=> [null, null, null, {steps: 3}]
+table = pingPong(table); //=> [null, null, {steps: 4}, null]
+table = pingPong(table); //=> [null, {steps: 5}, null, null]
+table = pingPong(table); //=> [{steps: 6}, null, null, null]
 pingPong(table); //=> [null, {steps: 7}, null, null]
