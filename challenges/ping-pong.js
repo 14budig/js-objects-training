@@ -47,25 +47,31 @@ var pingPong = function(table, speed){
       steps = table[i].steps;
     }
   }
-  var remainder = steps%(table.length - 1);
-  var adjustedSteps = steps - remainder;
-  var goLeft = (adjustedSteps/(table.length - 1))%2;
-  if(goLeft){
-    table[position] = null;
-    table[position-1] = {"steps":steps+1};
+  for(var j = 0; j < speed; j++){
+    var remainder = steps%(table.length - 1);
+    var adjustedSteps = steps - remainder;
+    var goLeft = (adjustedSteps/(table.length - 1))%2;
+    if(goLeft){
+      table[position] = null;
+      table[position-1] = {"steps":steps+1};
+      position--;
+      steps++;
+    }
+    else{
+      table[position] = null;
+      table[position+1] = {"steps":steps+1};
+      position ++;
+      steps++;
+    }
+      console.log(table);
   }
-  else{
-    table[position] = null;
-    table[position+1] = {"steps":steps+1};
-  }
-  console.log(table);
-  return table;
+    return table;
 }
 var table = [{steps: 0}, null, null, null];
 console.log(table);
-table = pingPong(table);
-table = pingPong(table); //=> [null, {steps: 1}, null, null]
-table = pingPong(table); //=> [null, null, {steps: 2}, null]
+table = pingPong(table,2);
+table = pingPong(table,2);
+table = pingPong(table,3); 
 table = pingPong(table); //=> [null, null, null, {steps: 3}]
 table = pingPong(table); //=> [null, null, {steps: 4}, null]
 table = pingPong(table); //=> [null, {steps: 5}, null, null]
