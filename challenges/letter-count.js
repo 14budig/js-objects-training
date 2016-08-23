@@ -42,7 +42,17 @@ var letterCount = function(input){
       output[letters[i]] = 1;
     }
   }
+  for(var val in output){
+    var num = output[val];
+    num = num/letters.length * 100;
+    num = num.toString();
+    num = num.slice(0,5);
+    output[val] = num + '%';
+
+  }
   return output;
 }
 
-console.log(letterCount("ApPle"));
+console.log(letterCount("Apple"));
+console.log(letterCount("Ape"));
+console.log(letterCount("XyZzY"));
